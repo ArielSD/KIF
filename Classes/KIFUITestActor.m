@@ -158,8 +158,10 @@
 }
 
 - (void)waitForAnimationsToFinishWithTimeout:(NSTimeInterval)timeout {
-    static const CGFloat kStabilizationWait = 0.5f;
-    
+    const CGFloat layerSpeed = UIApplication.sharedApplication.keyWindow.layer.speed;
+    timeout /= layerSpeed;
+    const CGFloat kStabilizationWait = 0.5f / layerSpeed;
+
     NSTimeInterval maximumWaitingTimeInterval = timeout;
     if (maximumWaitingTimeInterval <= kStabilizationWait) {
         if(maximumWaitingTimeInterval >= 0) {
